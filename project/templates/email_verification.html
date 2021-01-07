@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if activate_acc %}
+    <p>{{ activate_acc }}</p>
+    {% endif %}
+
+    {% if activate_pass %}
+    <p>{{ activate_pass }}</p>
+    {% endif %}
+
+    {% if activate_fail %}
+    <p>{{ activate_fail }}</p>
+    {% endif %}
+{% endblock %}
