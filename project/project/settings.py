@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'database_1',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'postgres',
-        'PASSWORD': 'coderslab'
+        'PASSWORD': my_passwords.database_password
     }
 }
 
@@ -137,3 +137,5 @@ EMAIL_HOST_USER = my_passwords.mymail
 EMAIL_HOST_PASSWORD = my_passwords.mypassword
 EMAIL_PORT = 587
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
