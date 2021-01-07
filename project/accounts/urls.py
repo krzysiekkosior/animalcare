@@ -19,5 +19,7 @@ from accounts import views
 urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('singup/', views.SignUpView.as_view(), name='signup'),
-    path('activate/<uidb64>/<token>/', views.activate_account, name='activate')
+    path('activate/<uidb64>/<token>/', views.activate_account, name='activate'),
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+
 ]

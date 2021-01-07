@@ -5,12 +5,11 @@ body {
 .topnav {
     overflow: hidden;
     background-color: darkolivegreen;
-    /*display: flex;*/
-    /*justify-content: flex-end;*/
     height: 48px;
 }
 
-.topnav h3 {
+.topnav-left {
+    text-decoration: none;
     margin: 0px;
     float: left;
     color: lightcyan;
@@ -18,12 +17,10 @@ body {
     padding-left: 40px;
     padding-bottom: 15px;
     padding-top: 15px;
-
-    text-decoration: none;
     font-size: 20px;
 }
 
-.topnav a {
+.topnav-right {
       float: right;
       color: #f2f2f2;
       text-align: center;
@@ -32,7 +29,7 @@ body {
       font-size: 17px;
 }
 
-.topnav button {
+.btn {
     background: darkgoldenrod;
     border-radius: 5px;
     color: #f2f2f2;
@@ -41,7 +38,7 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 100px;
+  width: 150px;
   position: fixed;
   z-index: 1;
   top: 48px;
@@ -49,6 +46,9 @@ body {
   background-color: darkkhaki;
   overflow-x: hidden;
   padding-top: 20px;
+  border-right-width: 2px;
+    border-right-style: solid;
+    border-right-color: darkolivegreen;
 }
 
 .sidenav a {
@@ -60,7 +60,12 @@ body {
 }
 
 .main {
-  margin-left: 100px;
+  margin-left: 150px;
   font-size: 20px;
   padding: 10px 10px;
+}
+
+.animals-list {
+    list-style-type: none;
+    padding-left: 0px;
 }

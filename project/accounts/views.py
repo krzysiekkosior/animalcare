@@ -1,10 +1,11 @@
 from django.contrib.sites.shortcuts import get_current_site
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.views.generic import CreateView
+from django.views import View
+from django.views.generic import CreateView, DetailView
 from django.core.mail import EmailMessage
 
 from accounts.forms import CustomUserCreationForm
@@ -61,3 +62,10 @@ def activate_account(request, uidb64, token):
     else:
         context = {'activate_fail': 'Link aktywacyjny jest niepoprawny.'}
         return render(request, 'email_verification.html', context)
+
+
+class ProfileView(View):
+
+    def get(self, request):
+        object = get_object_or_404(CustomUser, username=request.user.username)
+        return render(request, 'profile.html', {'object': object})

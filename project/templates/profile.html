@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Profil</h2>
+    <p><i>Nazwa użytkownika</i>: {{ object.username }}</p>
+    <p><i>Imię i nazwisko</i>: {{ object.first_name }} {{ object.last_name }}</p>
+    <p><i>E-mail</i>: {{ object.email }}</p>
+    <ul class="animals-list">
+        <li><b>zwierzątka:</b></li>
+        <li>test1</li>
+        <li>test2</li>
+    </ul>
+    <a href="{% url 'password_change' %}"><button class="btn">Zmień hasło</button></a>
+{% endblock %}
