@@ -1,10 +1,11 @@
 body {
   margin: 0;
+  background-color: #f0edeb;
 }
 
 .topnav {
     overflow: hidden;
-    background-color: darkolivegreen;
+    background-color: #DB7730;
     height: 48px;
 }
 
@@ -43,19 +44,19 @@ body {
   z-index: 1;
   top: 48px;
   left: 0;
-  background-color: darkkhaki;
+  background-color: #FA8B3C;
   overflow-x: hidden;
   padding-top: 20px;
   border-right-width: 2px;
     border-right-style: solid;
-    border-right-color: darkolivegreen;
+    border-right-color: #d47431;
 }
 
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 17px;
-  color: #f2f2f2;
+  color: black;
   display: block;
 }
 
