@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from main_app.models import Case, CasePhoto, Comment
+
+admin.site.register(Case)
+admin.site.register(CasePhoto)
+admin.site.register(Comment)
