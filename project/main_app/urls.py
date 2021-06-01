@@ -20,4 +20,5 @@ from project import settings
 
 urlpatterns = [
     path('', views.main_page, name='home'),
+    path('cases/', views.cases_list, name="cases_list")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

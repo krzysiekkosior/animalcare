@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+    {% for case in cases %}
+    {% if case.user %}
+    <p>Dodano przez {{ case.user }}</p>
+    {% endif %}
+    <p>{{ case.get_type_display }}</p>
+    <p>{{ case.date }}</p>
+    <p>{{ case.description }}</p>
+    {% empty %}
+    <h2>Brak nowych zŋłoszeń</h2>
+    {% endfor %}
 
-</body>
-</html>
+{% endblock %}
