@@ -1,14 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% for case in cases %}
-    {% if case.user %}
-    <p>Dodano przez {{ case.user }}</p>
-    {% endif %}
-    <p>{{ case.get_type_display }}</p>
-    <p>{{ case.date }}</p>
-    <p>{{ case.description }}</p>
-    {% empty %}
-    <h2>Brak nowych zŋłoszeń</h2>
-    {% endfor %}
 
+    {% for case in cases %}
+    <div class="case-list-el">
+        <div class="case-list-text">
+            <p><b>{{ case.get_type_display }}</b></p>
+            <span>{{ case.description }}</span>
+            <span><b>Lokalizacja: {{case.place}}</b></span>
+            <span>Data dodania: {{ case.date }}</span>
+            {% if case.user %}
+            <span>Zgłoszone przez: <i>{{ case.user }}</i></span>
+            {% else %}
+            <span>Zgłoszone przez: <i>anonim</i></span>
+            {% endif %}
+        </div>
+
+        <div class="case-list-photo">
+            {% if case.photos.all %}
+            {% with case.photos.all|first as photo%}
+                <img id="caseImg" class="photo-small" src={{photo.photo.url}}>
+            {% endwith %}
+            {% else %}
+                <i>Nie dodano zdjęcia</i>
+            {% endif %}
+        </div>
+    </div>
+            {% empty %}
+            <h2>Brak nowych zŋłoszeń</h2>
+
+    {% endfor %}
+    {% include 'photo_modal.html' %}
 {% endblock %}
