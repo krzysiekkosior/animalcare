@@ -87,10 +87,12 @@ body {
     background: beige;
 }
 
+.case-list-el:hover {background: antiquewhite;}
+
 .case-list-text {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     font-size: 17px;
     margin: 5px;
     padding: 2px;
@@ -181,4 +183,30 @@ body {
   .modal-content {
     width: 100%;
   }
+}
+
+select {
+  padding: 8px 10px;
+}
+
+textarea {
+  height: 150px;
+  padding: 12px 20px;
+  resize: none;
+}
+
+input[type=text] {
+  padding: 10px;
+}
+
+input[type=text], textarea, select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+input[type=text]:focus, textarea:focus, select:focus {
+   border: 3px solid #555;
 }
