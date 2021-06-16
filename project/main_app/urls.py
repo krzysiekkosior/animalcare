@@ -20,5 +20,6 @@ from project import settings
 
 urlpatterns = [
     path('', views.main_page, name='home'),
-    path('cases/', views.cases_list, name="cases_list")
+    path('cases/', views.cases_list, name="cases_list"),
+    path('add-case/', views.AddCaseView.as_view(), name='add_case')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
