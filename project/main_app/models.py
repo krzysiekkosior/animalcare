@@ -19,6 +19,9 @@ class Case(models.Model):
     ]
     status = models.IntegerField(choices=STATUSES, default=0)
 
+    def __str__(self):
+        return f'{self.date} - {self.place}'
+
 
 class Comment(models.Model):
     user = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.SET_NULL, related_name='comments')
