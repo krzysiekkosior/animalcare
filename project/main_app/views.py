@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
 from main_app.forms import CaseForm, PhotoForm
-from main_app.models import Case, CasePhoto
+from main_app.models import Case, CasePhoto, Comment
 
 
 def main_page(request):
@@ -33,10 +33,9 @@ class AddCaseView(View):
             user = request.user
             if user.is_authenticated:
                 case = Case(user=user, **case_form.cleaned_data)
-                case.save()
             else:
                 case = Case(**case_form.cleaned_data)
-                case.save()
+            case.save()
             photos = request.FILES.getlist('photos')
             if len(photos) != 0:
                 for photo in photos:
@@ -49,3 +48,15 @@ class AddCaseView(View):
             'photoForm': photo_form
         }
         return render(request, 'add_case.html', ctx)
+
+
+class CaseView(View):
+
+    def get(self, request, pk):
+        case = get_object_or_404(Case, pk=pk)
+        comments = Comment.objects.filter(case=case)
+        ctx = {
+            'case': case,
+            'comments': comments
+        }
+        return render(request, 'case_details.html', ctx)

@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+        <div class="case-details">
+            <div class="case-list-text">
+            <b>{{ case.get_type_display }}</b>
+            <p>Status ogłoszenia: {{ case.get_status_display }}</p>
+            </div>
+        {% if case.photos.all %}
+            <div class="photos">
+            {% for photo in case.photos.all%}
+                <div class="case-photo">
+                    <img id="caseImg" class="photo-small" src={{photo.photo.url}}>
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <div class="case-empty-photo">
+                <i>Brak zdjęć</i>
+            </div>
+        {% endif %}
 
-</body>
-</html>
+            <div class="case-list-text">
+                <p>{{ case.description }}</p>
+                <p><b>Lokalizacja: {{case.place}}</b></p>
+                <p>Data dodania: {{ case.date }}</p>
+                {% if case.user %}
+                <p>Zgłoszone przez: <i>{{ case.user }}</i></p>
+                {% else %}
+                <p>Zgłoszone przez: <i>anonim</i></p>
+                {% endif %}
+                {% if user == case.user %}
+                <a><button class="edit-button">Edytuj ogłoszenie</button></a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div>
+            SEKCJA KOMENTARZY LOREM IPSUM
+            {% if comments %}
+            <p>są komentarze</p>
+            {% else %}
+            <p>nie ma komentarzy</p>
+            {% endif %}
+        </div>
+    {% include 'photo_modal.html' %}
+{% endblock %}

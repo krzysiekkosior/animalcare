@@ -4,7 +4,7 @@
     {% for case in cases %}
     <div class="case-list-el">
         <div class="case-list-text">
-            <p><b>{{ case.get_type_display }}</b></p>
+            <a href="/case/{{case.pk}}/"><b>{{ case.get_type_display }}</b></a>
             <span>{{ case.description }}</span>
             <span><b>Lokalizacja: {{case.place}}</b></span>
             <span>Data dodania: {{ case.date }}</span>
