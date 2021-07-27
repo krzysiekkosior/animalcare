@@ -60,3 +60,38 @@ class CaseView(View):
             'comments': comments
         }
         return render(request, 'case_details.html', ctx)
+
+class EditCaseView(View):
+
+    def get(self, request, pk):
+        case = get_object_or_404(Case, pk=pk)
+
+        if case.user != request.user:
+            return redirect('cases_list')
+        case_form = CaseForm(instance=case)
+        photo_form = PhotoForm()
+        ctx = {
+            'caseForm': case_form,
+            'photoForm': photo_form,
+            'case': case
+        }
+        return render(request, 'edit_case.html', ctx)
+
+    def post(self, request, pk):
+        case = get_object_or_404(Case, pk=pk)
+        case_form = CaseForm(request.POST, instance=case)
+        if case_form.is_valid():
+            case_form.save()
+            photos = request.FILES.getlist('photos')
+            if len(photos) != 0:
+                for photo in photos:
+                    CasePhoto.objects.create(photo=photo, case=case)
+            return redirect(f'/case/{case.pk}')
+
+        photo_form = PhotoForm()
+        ctx = {
+            'caseForm': case_form,
+            'photoForm': photo_form,
+            'case': case
+        }
+        return render(request, 'edit_case.html', ctx)

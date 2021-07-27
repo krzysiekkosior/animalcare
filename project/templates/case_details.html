@@ -29,7 +29,7 @@
                 <p>Zgłoszone przez: <i>anonim</i></p>
                 {% endif %}
                 {% if user == case.user %}
-                <a><button class="edit-button">Edytuj ogłoszenie</button></a>
+                <a href="/case/{{case.pk}}/edit/"><button class="edit-button">Edytuj ogłoszenie</button></a>
                 {% endif %}
             </div>
         </div>

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edytuj zgłoszenie</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ caseForm.as_p }}
+    {% if case.photos.all %}
+            <div class="photos">
+            {% for photo in case.photos.all%}
+                <div class="case-photo">
+                    <img id="caseImg" class="photo-small" src={{photo.photo.url}}>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {{ photoForm.as_p }}
+    <input type="submit">
+</form>
+{% include 'photo_modal.html' %}
+{% endblock %}
