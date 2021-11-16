@@ -34,8 +34,16 @@ def test_add_case(client):
     after_add_cases_amount = Case.objects.count()
     assert after_add_cases_amount == pre_add_cases_amount + 1
 
+
 @pytest.mark.django_db
 def test_close_case_as_user(client, user, case):
     client.login(username='user', password='pass')
     response = client.get(f'/case/{case.pk}/close/')
     assert response.status_code == 403
+
+
+@pytest.mark.django_db
+def test_close_case_as_admin(client, user, case):
+    client.login(username='admin', password='pass')
+    response = client.get(f'/case/{case.pk}/close/')
+    assert response.status_code == 302

@@ -30,3 +30,16 @@ def case(user):
         description='big, dappled cow',
     )
     return case
+
+@pytest.fixture
+def adminp():
+    adminp = CustomUser.objects.create(
+        username='admin',
+        email='admin@user.com',
+        first_name='Admin_name',
+        last_name='Admin_lastname'
+    )
+    adminp.set_password('pass')
+    adminp.is_superuser = True
+    adminp.save()
+    return adminp
