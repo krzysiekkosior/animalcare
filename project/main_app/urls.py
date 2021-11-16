@@ -24,5 +24,6 @@ urlpatterns = [
     path('add-case/', views.AddCaseView.as_view(), name='add_case'),
     path('case/<int:pk>/', views.CaseView.as_view()),
     path('case/<int:pk>/edit/', views.EditCaseView.as_view()),
+    path('case/<int:pk>/close/', views.CloseCaseView.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
@@ -5,8 +6,14 @@ from main_app.forms import CaseForm, PhotoForm
 from main_app.models import Case, CasePhoto, Comment
 
 
+class SuperUserCheck(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
 def main_page(request):
     return render(request, 'main_page.html')
+
 
 def cases_list(request):
     cases = Case.objects.all().order_by('date')
@@ -61,6 +68,7 @@ class CaseView(View):
         }
         return render(request, 'case_details.html', ctx)
 
+
 class EditCaseView(View):
 
     def get(self, request, pk):
@@ -95,3 +103,12 @@ class EditCaseView(View):
             'case': case
         }
         return render(request, 'edit_case.html', ctx)
+
+
+class CloseCaseView(SuperUserCheck, View):
+
+    def get(self, request, pk):
+        case = get_object_or_404(Case, pk=pk)
+        case.status = 1
+        case.save()
+        return redirect(f'/case/{case.pk}')

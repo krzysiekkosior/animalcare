@@ -4,6 +4,9 @@
             <div class="case-list-text">
             <b>{{ case.get_type_display }}</b>
             <p>Status ogłoszenia: {{ case.get_status_display }}</p>
+                {% if user.is_superuser %}
+                <a href="/case/{{case.pk}}/close/">Zamknij ogłoszenie</a>
+                {% endif %}
             </div>
         {% if case.photos.all %}
             <div class="photos">
