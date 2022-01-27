@@ -36,11 +36,25 @@
                 {% endif %}
             </div>
         </div>
-
-        <div>
-            SEKCJA KOMENTARZY LOREM IPSUM
             {% if comments %}
-            <p>są komentarze</p>
+                <div class="comment">
+                    <p>Komentarze</p>
+            {% for com in comments %}
+                <div class="comment-text">
+                    <p>{{ com.content }}</p>
+                    <hr>
+                    <div class="comment-footer">
+                        <p>Autor: {{ com.user.username }}</p>
+                        <p>Dodano: {{ com.date }}</p>
+                        {% if user == com.user %}
+                        <a href="/case/{{case.pk}}/{{com.pk}}/edit"><button class="edit-button">Edytuj</button></a>
+                        <a href="/case/{{case.pk}}/{{com.pk}}/delete"><button class="delete-button">Usuń</button></a>
+                        {% endif %}
+                    </div>
+                </div>
+
+            {% endfor %}
+                    </div>
             {% else %}
             <p>nie ma komentarzy</p>
             {% endif %}
