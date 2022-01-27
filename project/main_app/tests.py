@@ -49,3 +49,19 @@ def test_close_case_as_admin(client, adminp, case):
     assert response.status_code == 302
     case.refresh_from_db()
     assert case.status == 1
+
+
+@pytest.mark.django_db
+def test_delete_case_as_user(client, user, case):
+    client.login(username='user', password='pass')
+    response = client.get(f'/case/{case.pk}/delete/')
+    assert response.status_code == 403
+
+
+@pytest.mark.django_db
+def test_delete_case_as_admin(client, adminp, case):
+    client.login(username='admin', password='pass')
+    cases = Case.objects.count()
+    response = client.get(f'/case/{case.pk}/delete/')
+    assert response.status_code == 302
+    assert Case.objects.count() == cases - 1
