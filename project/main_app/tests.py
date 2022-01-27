@@ -43,7 +43,9 @@ def test_close_case_as_user(client, user, case):
 
 
 @pytest.mark.django_db
-def test_close_case_as_admin(client, user, case):
+def test_close_case_as_admin(client, adminp, case):
     client.login(username='admin', password='pass')
     response = client.get(f'/case/{case.pk}/close/')
     assert response.status_code == 302
+    case.refresh_from_db()
+    assert case.status == 1
