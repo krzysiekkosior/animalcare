@@ -5,7 +5,10 @@
             <b>{{ case.get_type_display }}</b>
             <p>Status ogłoszenia: {{ case.get_status_display }}</p>
                 {% if user.is_superuser %}
-                <a href="/case/{{case.pk}}/close/">Zamknij ogłoszenie</a>
+               {% if case.status == 0 %}
+                 <a href="/case/{{case.pk}}/close/">Zamknij ogłoszenie</a>
+                {% endif %}
+                <a href="/case/{{case.pk}}/delete/">Usuń ogłoszenie</a>
                 {% endif %}
             </div>
         {% if case.photos.all %}

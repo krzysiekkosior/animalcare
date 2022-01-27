@@ -112,3 +112,11 @@ class CloseCaseView(SuperUserCheck, View):
         case.status = 1
         case.save()
         return redirect(f'/case/{case.pk}')
+
+
+class DeleteCaseView(SuperUserCheck, View):
+
+    def get(self, request, pk):
+        case = get_object_or_404(Case, pk=pk)
+        case.delete()
+        return redirect('/cases/')
