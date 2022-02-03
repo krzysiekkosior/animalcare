@@ -1,6 +1,6 @@
 import pytest
 
-from main_app.models import Case
+from main_app.models import Case, Comment
 
 
 @pytest.mark.django_db
@@ -65,3 +65,15 @@ def test_delete_case_as_admin(client, adminp, case):
     response = client.get(f'/case/{case.pk}/delete/')
     assert response.status_code == 302
     assert Case.objects.count() == cases - 1
+
+
+@pytest.mark.django_db
+def test_add_comment(client, user, case):
+    pre_add_comments_amount = Comment.objects.count()
+    client.login(username='user', password='pass')
+    context = {
+        'content': 'Treść komentarza'
+    }
+    client.post(f'/case/{case.pk}/comment/', context)
+    after_add_comments_amount = Comment.objects.count()
+    assert after_add_comments_amount == pre_add_comments_amount + 1
