@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
-from main_app.forms import CaseForm, PhotoForm
+from main_app.forms import CaseForm, PhotoForm, CommentForm
 from main_app.models import Case, CasePhoto, Comment
 
 
@@ -120,3 +120,43 @@ class DeleteCaseView(SuperUserCheck, View):
         case = get_object_or_404(Case, pk=pk)
         case.delete()
         return redirect('/cases/')
+
+
+class AddEditCommentView(View):
+
+    def get(self, request, case_pk, com_pk=None):
+        if com_pk is None:
+            form = CommentForm()
+            title = "Dodaj komentarz"
+        else:
+            comment = Comment.objects.get(pk=com_pk)
+            form = CommentForm(instance=comment)
+            title = "Edytuj komentarz"
+        ctx = {
+            'form': form,
+            'title': title
+        }
+        return render(request, 'add_or_edit_comment.html', ctx)
+
+    def post(self, request, case_pk, com_pk=None):
+        if com_pk is None:
+            title = "Dodaj komentarz"
+            form = CommentForm(request.POST)
+            user = request.user
+            case = Case.objects.get(pk=case_pk)
+            if form.is_valid():
+                content = form.cleaned_data['content']
+                Comment.objects.create(user=user, case=case, content=content)
+                return redirect(f'/case/{case_pk}')
+        else:
+            comment = Comment.objects.get(pk=com_pk)
+            form = CommentForm(request.POST, instance=comment)
+            title = "Edytuj komentarz"
+            if form.is_valid():
+                form.save()
+                return redirect(f'/case/{case_pk}')
+        ctx = {
+            'form': form,
+            'title': title
+        }
+        return render(request, 'add_or_edit_comment.html', ctx)
