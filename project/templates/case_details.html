@@ -42,6 +42,9 @@
             {% if comments %}
                 <div class="comment">
                     <p>Komentarze</p>
+                    {% if case.status == 0 %}
+                    <a href="/case/{{case.pk}}/comment"><button class="edit-button">Dodaj komentarz</button></a><br>
+                    {% endif %}
             {% for com in comments %}
                 <div class="comment-text">
                     <p>{{ com.content }}</p>
@@ -50,7 +53,9 @@
                         <p>Autor: {{ com.user.username }}</p>
                         <p>Dodano: {{ com.date }}</p>
                         {% if user == com.user %}
-                        <a href="/case/{{case.pk}}/{{com.pk}}/edit"><button class="edit-button">Edytuj</button></a>
+                        <a href="/case/{{case.pk}}/comment/{{com.pk}}"><button class="edit-button">Edytuj</button></a>
+                        {% endif %}
+                        {% if user == com.user or user.is_superuser %}
                         <a href="/case/{{case.pk}}/{{com.pk}}/delete"><button class="delete-button">Usuń</button></a>
                         {% endif %}
                     </div>
