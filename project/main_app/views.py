@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
@@ -15,8 +15,14 @@ def main_page(request):
     return render(request, 'main_page.html')
 
 
-def cases_list(request):
-    cases = Case.objects.all().order_by('date')
+def cases_list(request, case_type=None):
+    if case_type == "poszukiwane":
+        cases = Case.objects.filter(type=0).order_by('date')
+    elif case_type == "znalezione":
+        cases = Case.objects.filter(type=1).order_by('date')
+    else:
+        cases = Case.objects.all().order_by('date')
+
     ctx = {
         'cases': cases
     }
@@ -122,7 +128,7 @@ class DeleteCaseView(SuperUserCheck, View):
         return redirect('/cases/')
 
 
-class AddEditCommentView(View):
+class AddEditCommentView(LoginRequiredMixin, View):
 
     def get(self, request, case_pk, com_pk=None):
         if com_pk is None:
