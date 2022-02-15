@@ -15,14 +15,17 @@ def main_page(request):
     return render(request, 'main_page.html')
 
 
-def cases_list(request, case_type=None):
-    if case_type == "poszukiwane":
-        cases = Case.objects.filter(type=0).order_by('date')
-    elif case_type == "znalezione":
-        cases = Case.objects.filter(type=1).order_by('date')
+def cases_list(request, case_filter=None):
+    if case_filter == "poszukiwane":
+        cases = Case.objects.filter(type=0, status=0).order_by('date')
+    elif case_filter == "znalezione":
+        cases = Case.objects.filter(type=1, status=0).order_by('date')
+    elif case_filter == "zamkniete-ogloszenia":
+        cases = Case.objects.filter(status=1).order_by('date')
+    elif case_filter is None:
+        cases = Case.objects.filter(status=0).order_by('date')
     else:
-        cases = Case.objects.all().order_by('date')
-
+        return redirect('cases_list')
     ctx = {
         'cases': cases
     }

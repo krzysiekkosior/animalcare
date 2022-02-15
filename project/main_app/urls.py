@@ -21,7 +21,7 @@ from project import settings
 urlpatterns = [
     path('', views.main_page, name='home'),
     path('cases/', views.cases_list, name="cases_list"),
-    path('cases/<str:case_type>/', views.cases_list, name="cases_list"),
+    path('cases/<str:case_filter>/', views.cases_list, name="cases_list"),
     path('add-case/', views.AddCaseView.as_view(), name='add_case'),
     path('case/<int:pk>/', views.CaseView.as_view()),
     path('case/<int:pk>/edit/', views.EditCaseView.as_view()),
