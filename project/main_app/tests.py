@@ -77,3 +77,25 @@ def test_add_comment(client, user, case):
     client.post(f'/case/{case.pk}/comment/', context)
     after_add_comments_amount = Comment.objects.count()
     assert after_add_comments_amount == pre_add_comments_amount + 1
+
+
+@pytest.mark.django_db
+def test_cases_list_url(client):
+    response = client.get('/cases/')
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_filter_cases_list_url(client):
+    response = client.get('/cases/znalezione/')
+    assert response.status_code == 200
+    response = client.get('/cases/poszukiwane/')
+    assert response.status_code == 200
+    response = client.get('/cases/zamkniete-ogloszenia/')
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_wrong_filter_cases_list_url(client):
+    response = client.get('/cases/infinite-random-letters/')
+    assert response.status_code == 302

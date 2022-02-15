@@ -26,7 +26,7 @@ urlpatterns = [
     path('case/<int:pk>/', views.CaseView.as_view()),
     path('case/<int:pk>/edit/', views.EditCaseView.as_view()),
     path('case/<int:pk>/close/', views.CloseCaseView.as_view()),
-    path('case/<int:pk>/delete', views.DeleteCaseView.as_view()),
+    path('case/<int:pk>/delete/', views.DeleteCaseView.as_view()),
     path('case/<int:case_pk>/comment/', views.AddEditCommentView.as_view()),
     path('case/<int:case_pk>/comment/<int:com_pk>/', views.AddEditCommentView.as_view()),
 
