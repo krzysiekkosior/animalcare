@@ -1,7 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h3>Testowy Nagłówek 1</h3>
-    <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-    <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-    <div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
+    <h4>Co robić ze znalezionym zwierzęciem?</h4>
+    <div>W pierwszej kolejności należy zawiadomić policję lub straż miejską – służby te zajmą się zapewnieniem mu opieki medycznej i schronienia. Jeśli znaleźliśmy czworonoga na terenie gminy, ta właśnie jednostka ma obowiązek opieki nad nim.</div>
+    <br>
+    <div>Jeżeli posiadamy odpowiednie warunki możemy również zabezpieczyć zwierzę w swoim mieszkaniu. Aplikacja ta powstała z myślą o obu sytuacjach. Prosty i przejrzysty formularz pozwala na szybkie dodawanie zgłoszeń.</div>
+    <br>
+    <div>
+        {% if not user.is_authenticated %}
+        Dodaj zgłoszenie <a href="/add-case/">anonimowo</a> lub <a href="/accounts/login/">zaloguj się</a> / <a href="/accounts/singup/">zarejestruj się</a>.
+        {% endif %}
+    </div>
+    <h4>Instrukcja szukania zaginionego kota</h4>
+    <ul>
+        <li>Bardzo starannie przeszukujemy najbliższe otoczenie, (tak średnio do 5 domów).</li>
+        <li>Czyli: zarośla, krzaki, garaże, śmietniki, no wszystko gdzie kot mógł znaleźć tymczasową kryjówkę.</li>
+        <li>Prosimy sąsiadów aby dokładniej przyjrzeli się swojemu garażowi i budynkom gospodarczym. Albo prosimy o możliwość przeszukania tych miejsc osobiście.</li>
+        <li>W pobliżu tych miejsc rozwieszamy plakaty. Warto na nich wspomnieć nawet o niewielkiej nagrodzie pieniężnej. Ludzie wtedy są bardziej czujni, lepiej zapamiętują ogłoszenie.</li>
+        <li>Niestety prawda jest taka, że zabiegani ludzie rzadko czytają plakaty i ogłoszenia. Dobrym pomysłem będzie zrobienie ulotek. Możemy rozdawać je przechodniom, wrzucać do skrzynek na listy, wkładać za wycieraczki w samochodzie.</li>
+        <li>Można pożyczyć klatkę kennelową, środek wyłożyć jego kocykiem, wstawić jedzonko i liczyć że się uda.</li>
+        <li>Najlepsza pora na szukanie? Bardzo wczesny poranek i późne nocne godziny. Czyli 5-6 rano i tak po godzinie 22, kiedy milkną odgłosy otoczenia. On przecież w końcu wyjdzie i zacznie szukać pożywienia, ale na pewno nie w środku dnia.</li>
+        <li>Prosimy o pomoc Fundacje, schroniska, monitorujemy czy ktoś nie znalazł.</li>
+        <li>Może zdarzyć się tak, że znajdziemy kota, namierzymy go. Ale co się dzieje?! On na nasz widok zaczyna uciekać…Nie gonimy. To bez sensu. Wracamy tam z klatką- łapką.</li>
+    </ul>
+    <h4>Instrukcja szukania zaginionego psa</h4>
+    <ul>
+        <li>Najpierw przeszukaj własną posesję i ogrody sąsiadów. Zdarza się, że psy są uwięzione w szopie lub wpadły do studni.</li>
+        <li>Odwiedź wszystkie schroniska w okolicy.</li>
+        <li>Zamieść ogłoszenia w internecie, radiu i lokalnych gazetach. Porozwieszaj widoczne z daleka plakaty, zostaw ulotki w lecznicach, sklepach zoologicznych, supermarketach, pizzeriach i pubach.</li>
+        <li>Nie daj się oszukać, gdy ktoś prosi cię o przesłanie pieniędzy na leczenie podobno twojego odnalezionego psa. Nie zgadzaj się też wypłacić nagrody, zanim pies do ciebie nie powróci. Jeśli ktoś go rzekomo znalazł, ale odmawia wydania, zanim zapłacisz – wezwij policję. Nigdy nie jedź sam go odebrać!</li>
+        <li>Jak szukać zaginionego psa? Nie zniechęcaj się. Czasami odnalezienie pupila trwa kilka tygodni, a nawet miesięcy. On gdzieś jest, może kilka przecznic od twojego domu. Nie trać nadziei.</li>
+    </ul>
 {% endblock %}
