@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
@@ -134,6 +135,9 @@ class DeleteCaseView(SuperUserCheck, View):
 class AddEditCommentView(LoginRequiredMixin, View):
 
     def get(self, request, case_pk, com_pk=None):
+        case = get_object_or_404(Case, pk=case_pk)
+        if case.status == 1:
+            return redirect(f'/case/{case.pk}/')
         if com_pk is None:
             form = CommentForm()
             title = "Dodaj komentarz"
