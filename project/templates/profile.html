@@ -1,8 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Profil</h2>
+<h4>Dane:</h4>
     <p><i>Nazwa użytkownika</i>: {{ object.username }}</p>
     <p><i>Imię i nazwisko</i>: {{ object.first_name }} {{ object.last_name }}</p>
     <p><i>E-mail</i>: {{ object.email }}</p>
-    <a href="{% url 'password_change' %}"><button class="btn">Zmień hasło</button></a>
+
+<h4>Twoje zgłoszenia:</h4>
+    {% for case in cases %}
+
+    <div class="comment">
+    <div class="comment-text">
+        <a href="/case/{{case.pk}}"><p>{{case.get_type_display}}</p></a>
+        <p>Data zgłoszenia: {{case.date}}</p>
+        <p>Opis: {{case.description|truncatechars:150}}</p>
+        <p>Lokalizacja: {{case.place|truncatechars:60}}</p>
+    </div>
+</div>
+    {% endfor %}
+<a href="{% url 'password_change' %}"><button class="btn">Zmień hasło</button></a>
 {% endblock %}

@@ -11,6 +11,7 @@ from django.core.mail import EmailMessage
 from accounts.forms import CustomUserCreationForm
 from accounts.models import CustomUser
 from accounts.tokens import account_activation_token
+from main_app.models import Case
 
 
 class SignUpView(CreateView):
@@ -68,4 +69,9 @@ class ProfileView(View):
 
     def get(self, request):
         object = get_object_or_404(CustomUser, username=request.user.username)
-        return render(request, 'profile.html', {'object': object})
+        cases = Case.objects.filter(user=object)
+        ctx = {
+            'object': object,
+            'cases': cases
+        }
+        return render(request, 'profile.html', ctx)
