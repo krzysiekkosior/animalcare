@@ -173,3 +173,14 @@ class AddEditCommentView(LoginRequiredMixin, View):
             'title': title
         }
         return render(request, 'add_or_edit_comment.html', ctx)
+
+
+class DeleteCommentView(LoginRequiredMixin, View):
+
+    def get(self, request, case_pk, com_pk):
+        case = get_object_or_404(Case, pk=case_pk)
+        comment = get_object_or_404(Comment, pk=com_pk)
+        user = request.user
+        if comment.user == user or user.is_superuser:
+            comment.delete()
+        return redirect(f'/case/{case.pk}')
