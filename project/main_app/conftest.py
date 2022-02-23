@@ -2,7 +2,7 @@ import pytest
 from django.test import Client
 
 from accounts.models import CustomUser
-from main_app.models import Case
+from main_app.models import Case, Comment
 
 
 @pytest.fixture
@@ -43,3 +43,13 @@ def adminp():
     adminp.is_superuser = True
     adminp.save()
     return adminp
+
+@pytest.fixture
+def comment(user, case):
+    comment = Comment.objects.create(
+        user=user,
+        case=case,
+        content='Helvetica and Times New Roman walk into a bar. '
+                'Get out of here! shouts the bartender. We don’t serve your type.'
+    )
+    return comment

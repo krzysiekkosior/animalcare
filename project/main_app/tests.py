@@ -99,3 +99,19 @@ def test_filter_cases_list_url(client):
 def test_wrong_filter_cases_list_url(client):
     response = client.get('/cases/infinite-random-letters/')
     assert response.status_code == 302
+
+
+@pytest.mark.django_db
+def test_deleting_comment_as_user(client, user, case, comment):
+    client.login(username='user', password='pass')
+    comments = Comment.objects.count()
+    client.get(f'/case/{case.pk}/{comment.pk}/delete/')
+    assert Comment.objects.count() == comments - 1
+
+
+@pytest.mark.django_db
+def test_deleting_comment_as_admin(client, adminp, case, comment):
+    client.login(username='admin', password='pass')
+    comments = Comment.objects.count()
+    client.get(f'/case/{case.pk}/{comment.pk}/delete/')
+    assert Comment.objects.count() == comments - 1
