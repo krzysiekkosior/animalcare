@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.contrib.sites.shortcuts import get_current_site
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
@@ -208,6 +209,7 @@ class RemoveFromObserved(LoginRequiredMixin, View):
     def get(self, request, case_pk, obs_pk):
         case = get_object_or_404(Case, pk=case_pk)
         observed = get_object_or_404(Observed, pk=obs_pk)
+        current_page = request.META['HTTP_REFERER']
         if observed.user == request.user:
             observed.delete()
-        return redirect(f'/case/{case.pk}')
+        return redirect(current_page)

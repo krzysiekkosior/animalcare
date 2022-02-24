@@ -5,6 +5,22 @@
     <p><i>Imię i nazwisko</i>: {{ object.first_name }} {{ object.last_name }}</p>
     <p><i>E-mail</i>: {{ object.email }}</p>
 
+<h4>Obserwowane zgłoszenia:</h4>
+    {% for obs in observed %}
+
+    <div class="comment">
+    <div class="comment-text">
+        <a href="/case/{{case.pk}}"><p>{{obs.case.get_type_display}}</p></a>
+        <p>Data zgłoszenia: {{obs.case.date}}</p>
+        <p>Opis: {{obs.case.description|truncatechars:150}}</p>
+        <p>Lokalizacja: {{obs.case.place|truncatechars:60}}</p>
+        <a href="/case/{{obs.case.pk}}/remove_from_observed/{{obs.pk}}/">Przestań obserwować</a>
+    </div>
+</div>
+    {% empty %}
+    <h5>Brak</h5>
+    {% endfor %}
+
 <h4>Twoje zgłoszenia:</h4>
     {% for case in cases %}
 
