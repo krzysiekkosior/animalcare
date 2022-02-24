@@ -33,3 +33,8 @@ class Comment(models.Model):
 class CasePhoto(models.Model):
     case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='photos')
     photo = models.ImageField()
+
+
+class Observed(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='observed')
+    case = models.ForeignKey(Case, on_delete=models.CASCADE, related_name='observed')
