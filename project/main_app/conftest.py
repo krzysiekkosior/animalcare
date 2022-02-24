@@ -2,12 +2,13 @@ import pytest
 from django.test import Client
 
 from accounts.models import CustomUser
-from main_app.models import Case, Comment
+from main_app.models import Case, Comment, Observed
 
 
 @pytest.fixture
 def client():
     return Client()
+
 
 @pytest.fixture
 def user():
@@ -21,6 +22,7 @@ def user():
     user.save()
     return user
 
+
 @pytest.fixture
 def case(user):
     case = Case.objects.create(
@@ -30,6 +32,7 @@ def case(user):
         description='big, dappled cow',
     )
     return case
+
 
 @pytest.fixture
 def adminp():
@@ -44,6 +47,7 @@ def adminp():
     adminp.save()
     return adminp
 
+
 @pytest.fixture
 def comment(user, case):
     comment = Comment.objects.create(
@@ -53,3 +57,12 @@ def comment(user, case):
                 'Get out of here! shouts the bartender. We don’t serve your type.'
     )
     return comment
+
+
+@pytest.fixture
+def observed(user, case):
+    observed = Observed.objects.create(
+        user=user,
+        case=case
+    )
+    return observed

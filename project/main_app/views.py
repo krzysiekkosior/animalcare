@@ -208,6 +208,6 @@ class RemoveFromObserved(LoginRequiredMixin, View):
     def get(self, request, case_pk, obs_pk):
         case = get_object_or_404(Case, pk=case_pk)
         observed = get_object_or_404(Observed, pk=obs_pk)
-        if observed.case == case:
+        if observed.user == request.user:
             observed.delete()
         return redirect(f'/case/{case.pk}')

@@ -1,6 +1,6 @@
 import pytest
 
-from main_app.models import Case, Comment
+from main_app.models import Case, Comment, Observed
 
 
 @pytest.mark.django_db
@@ -115,3 +115,19 @@ def test_deleting_comment_as_admin(client, adminp, case, comment):
     comments = Comment.objects.count()
     client.get(f'/case/{case.pk}/{comment.pk}/delete/')
     assert Comment.objects.count() == comments - 1
+
+
+@pytest.mark.django_db
+def test_adding_case_to_observed(client, user, case):
+    client.login(username='user', password='pass')
+    observed_cases = Observed.objects.filter(user=user, case=case).count()
+    client.get(f'/case/{case.pk}/add_to_observed/')
+    assert Observed.objects.filter(user=user, case=case).count() == observed_cases + 1
+
+
+@pytest.mark.django_db
+def test_removing_case_from_observed(client, user, case, observed):
+    client.login(username='user', password='pass')
+    observed_cases = Observed.objects.filter(user=user, case=case).count()
+    client.get(f'/case/{case.pk}/remove_from_observed/{observed.pk}/')
+    assert Observed.objects.filter(user=user, case=case).count() == observed_cases - 1
