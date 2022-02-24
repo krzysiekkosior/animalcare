@@ -4,6 +4,13 @@
             <div class="case-list-text">
             <b>{{ case.get_type_display }}</b>
             <p>Status ogłoszenia: {{ case.get_status_display }}</p>
+                {% if user.is_authenticated %}
+                {% if observed is not None %}
+                <p>Obserwujesz już to ogłoszenie.</p> <a href="/case/{{case.pk}}/remove_from_observed/{{observed.pk}}/">Przestań obserwować</a>
+                {% else %}
+                <a href="/case/{{case.pk}}/add_to_observed/">Obserwuj ogłoszenie</a>
+                {% endif %}
+                {% endif %}
                 {% if user.is_superuser %}
                {% if case.status == 0 %}
                  <a href="/case/{{case.pk}}/close/">Zamknij ogłoszenie</a>

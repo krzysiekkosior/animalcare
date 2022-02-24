@@ -30,5 +30,7 @@ urlpatterns = [
     path('case/<int:case_pk>/comment/', views.AddEditCommentView.as_view()),
     path('case/<int:case_pk>/comment/<int:com_pk>/', views.AddEditCommentView.as_view()),
     path('case/<int:case_pk>/<int:com_pk>/delete/', views.DeleteCommentView.as_view()),
+    path('case/<int:pk>/add_to_observed/', views.AddToObserved.as_view()),
+    path('case/<int:case_pk>/remove_from_observed/<int:obs_pk>/', views.RemoveFromObserved.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

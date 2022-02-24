@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 
 from main_app.forms import CaseForm, PhotoForm, CommentForm
-from main_app.models import Case, CasePhoto, Comment
+from main_app.models import Case, CasePhoto, Comment, Observed
 
 
 class SuperUserCheck(UserPassesTestMixin, View):
@@ -71,10 +71,15 @@ class CaseView(View):
 
     def get(self, request, pk):
         case = get_object_or_404(Case, pk=pk)
+        try:
+            observed = Observed.objects.get(case=case, user=request.user)
+        except Observed.DoesNotExist:
+            observed = None
         comments = Comment.objects.filter(case=case)
         ctx = {
             'case': case,
-            'comments': comments
+            'comments': comments,
+            'observed': observed
         }
         return render(request, 'case_details.html', ctx)
 
@@ -183,4 +188,26 @@ class DeleteCommentView(LoginRequiredMixin, View):
         user = request.user
         if comment.user == user or user.is_superuser:
             comment.delete()
+        return redirect(f'/case/{case.pk}')
+
+
+class AddToObserved(LoginRequiredMixin, View):
+
+    def get(self, request, pk):
+        case = get_object_or_404(Case, pk=pk)
+        user = request.user
+        try:
+            Observed.objects.get(case=case, user=user)
+        except Observed.DoesNotExist:
+            Observed.objects.create(case=case, user=user)
+        return redirect(f'/case/{case.pk}/')
+
+
+class RemoveFromObserved(LoginRequiredMixin, View):
+
+    def get(self, request, case_pk, obs_pk):
+        case = get_object_or_404(Case, pk=case_pk)
+        observed = get_object_or_404(Observed, pk=obs_pk)
+        if observed.case == case:
+            observed.delete()
         return redirect(f'/case/{case.pk}')
