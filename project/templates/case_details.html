@@ -73,6 +73,9 @@
             {% else %}
                 <div class="comment">
                     <p>Komentarze</p>
+                    {% if case.status == 0 %}
+                    <a href="/case/{{case.pk}}/comment"><button class="edit-button">Dodaj komentarz</button></a><br>
+                    {% endif %}
                     <div class="comment-text">
                         <p>Brak komentarzy</p>
                     </div>
