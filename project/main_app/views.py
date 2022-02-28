@@ -72,9 +72,13 @@ class CaseView(View):
 
     def get(self, request, pk):
         case = get_object_or_404(Case, pk=pk)
-        try:
-            observed = Observed.objects.get(case=case, user=request.user)
-        except Observed.DoesNotExist:
+        user = request.user
+        if user.is_authenticated:
+            try:
+                observed = Observed.objects.get(case=case, user=user)
+            except Observed.DoesNotExist:
+                observed = None
+        else:
             observed = None
         comments = Comment.objects.filter(case=case)
         ctx = {
